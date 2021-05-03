@@ -100,6 +100,11 @@ var main = (function () {
     var isURL = function (str) {
         return (str.startsWith("http") || str.startsWith("www")) && str.indexOf(" ") === -1 && str.indexOf("\n") === -1;
     };
+
+    //Added to check email callback
+    var isEmail = function (str) {
+        return (str.startsWith("You can reach me at contact@alvaro.life"));
+    };
     
     /**
      * Model
@@ -438,6 +443,10 @@ var main = (function () {
         if (isURL(text)) {
             window.open(text);
         }
+        if(isEmail(text)) {
+            window.open('mailto:contact@alvaro.life');
+        }
+
         var i = 0;
         var output = this.output;
         var timer = this.timer;
