@@ -10,7 +10,7 @@ body {
     font-size: 13pt;
     font-family: monospace;
     color: white;
-    background-color: black;
+    background-color: rgb(31, 31, 31);
 }
 #container {
     padding: .1em 1.5em 1em 1em;
@@ -46,7 +46,7 @@ body {
     user-select: none;
 }
 .prompt-color {
-    color: #11ad17;
+    color: #0ee015;
 }
 .input-line {
     display: -webkit-box;
@@ -121,7 +121,7 @@ body {
     border:none;
 }
 #sidenav button:hover {
-    color: #11ad17;
+    color: #0ee015;
 }
 
 @media screen and (max-height: 450px) {
