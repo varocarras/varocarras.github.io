@@ -12,7 +12,7 @@ var configs = (function () {
         }
     };
     Singleton.defaultOptions = {
-        general_help: "Below is the list of commands that you can use:\n",
+        general_help: "Below is the list of commands that you can use:\n Use TAB to autocomplete!",
         ls_help: "List information about the files and folders (the current directory by default).",
         cat_help: "Read FILE(s) content and print it to the standard output (screen).",
         whoami_help: "Print the user name associated with the current effective user ID and more info.",
@@ -70,7 +70,7 @@ var files = (function () {
         "resume.pdf": "https://drive.google.com/file/d/1JQ2dY3Qiz9DZ924zUwE4AqSFz98ooarb/view?usp=sharing",
         "linkedin.com": "https://www.linkedin.com/in/varoc",
         //"getting_started.txt": "First, go to js/main.js and replace all the text on both singleton vars.\n- configs: All the text used on the website.\n- files: All the fake files used on the website. These files are also used to be listed on the sidenav.\nAlso please notice if a file content is a raw URL, when clicked/concatenated it will be opened on a new tab.\nDon't forget also to:\n- Change the page title on the index.html file\n- Change the website color on the css/main.css\n- Change the images located at the img folder. The suggested sizes are 150x150 for the avatar and 32x32/16x16 for the favicon.",
-        "contact.txt": "contact@alvaro.life",
+        "contact.txt": "You can reach me at contact@alvaro.life",
         "about.txt": "This website was made for personal and professional use\nIt was made purely in Javascript with no extra libraries \nIf you manage to find any bugs or security issues feel free to email me: contact@alvaro.life"
     };
     return {
