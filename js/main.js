@@ -420,7 +420,11 @@ var main = (function () {
     };
 
     Terminal.prototype.invalidCommand = function (cmdComponents) {
-        this.type(configs.getInstance().invalid_command_message.replace(configs.getInstance().value_token, cmdComponents[0]), this.unlock.bind(this));
+        if(cmdComponents[0] == ""){
+            this.type("\n",this.unlock.bind(this));
+        }else{
+            this.type(configs.getInstance().invalid_command_message.replace(configs.getInstance().value_token, cmdComponents[0]), this.unlock.bind(this));
+        }
     };
 
     Terminal.prototype.focus = function () {
