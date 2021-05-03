@@ -72,7 +72,7 @@ var files = (function () {
         "contact.txt": "mail@example.com",
         "social_network_1.txt": "https://www.socialite.com/username/",
         "social_network_2.txt": "https://example.com/profile/9382/",
-        "test_file.txt": "This is a fake file example"
+        "test_file.txt": "https://pdfhost.io/edit?doc=0f4b3619-002d-484a-ab1d-dd4194d06dca"
     };
     return {
         getInstance: function (options) {
