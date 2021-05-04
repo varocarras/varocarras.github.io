@@ -420,6 +420,8 @@ var main = (function () {
     };
 
     Terminal.prototype.invalidCommand = function (cmdComponents) {
+        
+        //Check if its empty and go to next line
         if(cmdComponents[0] == ""){
             this.type("\n",this.unlock.bind(this));
         }else{
