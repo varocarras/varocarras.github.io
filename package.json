@@ -1,0 +1,23 @@
+{
+  "name": "varocarras.github.io",
+  "version": "1.0.0",
+  "description": "My personal site",
+  "main": "index.js",
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varocarras/varocarras.github.io.git"
+  },
+  "author": "Alvaro Carrascosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varocarras/varocarras.github.io/issues"
+  },
+  "homepage": "https://github.com/varocarras/varocarras.github.io#readme"
+}

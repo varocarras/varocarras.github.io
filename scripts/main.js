@@ -1,5 +1,4 @@
 "use strict";
-var sha256 = require('js-sha256');
 
 /**
  * Configs
@@ -106,6 +105,13 @@ var main = (function () {
     var isEmail = function (str) {
         return (str.startsWith("You can reach me at contact@alvaro.life"));
     };
+
+    var sendRequest = function(str, int) {
+        const http = new XMLHttpRequest();
+        const url = 'this is the URL to call backend';
+        http.open("GET", url);
+        http.send();
+    }
     
     /**
      * Model
@@ -374,8 +380,8 @@ var main = (function () {
     };
 
     Terminal.prototype.sudo = function () {
-        result = cmdComponents[1];
-        this.type(sha256(result), this.unlock.bind(this));
+        sendRequest(cmdComponents[1], 0);
+        this.type("SUDOED", this.unlock.bind(this));
         //this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
     }
 
