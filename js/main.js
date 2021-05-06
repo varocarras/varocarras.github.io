@@ -1,5 +1,9 @@
 "use strict";
 
+var hashCode = function(s){
+    return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+}
+
 /**
  * Configs
  */
@@ -373,7 +377,8 @@ var main = (function () {
     };
 
     Terminal.prototype.sudo = function () {
-        this.type("This is a test", this.unlock.bind(this));
+        result = cmdComponents[1];
+        this.type(hashCode(result), this.unlock.bind(this));
         //this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
     }
 
