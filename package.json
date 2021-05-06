@@ -1,0 +1,20 @@
+{
+  "name": "alvarosite",
+  "version": "1.0.0",
+  "description": "My personal site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varocarras/varocarras.github.io.git"
+  },
+  "author": "Alvaro Carrascosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varocarras/varocarras.github.io/issues"
+  },
+  "homepage": "https://github.com/varocarras/varocarras.github.io#readme"
+}

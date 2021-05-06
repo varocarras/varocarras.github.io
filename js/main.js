@@ -1,8 +1,5 @@
 "use strict";
-
-var hashCode = function(s){
-    return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
-}
+var sha256 = require('js-sha256');
 
 /**
  * Configs
@@ -378,7 +375,7 @@ var main = (function () {
 
     Terminal.prototype.sudo = function () {
         result = cmdComponents[1];
-        this.type(hashCode(result), this.unlock.bind(this));
+        this.type(sha256(result), this.unlock.bind(this));
         //this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
     }
 
