@@ -386,8 +386,8 @@ var main = (function () {
 
     Terminal.prototype.sudo = function () {
         //var result = sendRequest(cmdComponents[1], 0);
-        this.type(result), this.unlock.bind(this));
-        //this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
+        //this.type(result), this.unlock.bind(this));
+        this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
     }
 
     Terminal.prototype.whoami = function (cmdComponents) {
