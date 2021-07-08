@@ -106,16 +106,16 @@ var main = (function () {
         return (str.startsWith("You can reach me at contact@alvaro.life"));
     };
 
-    var sendRequest = function(str, int) {
-        const http = new XMLHttpRequest();
-        const url = 'https://jsonplaceholder.typicode.com/users';
-        http.open("GET", url);
-        http.send();
-        http.onload = () => {
-            if(http.status == 200){
-                return http.response;
-            }
-        }
+    // var sendRequest = function(str, int) {
+    //     const http = new XMLHttpRequest();
+    //     const url = 'https://jsonplaceholder.typicode.com/users';
+    //     http.open("GET", url);
+    //     http.send();
+    //     http.onload = () => {
+    //         if(http.status == 200){
+    //             return http.response;
+    //         }
+    //     }
     }
     
     /**
@@ -385,7 +385,7 @@ var main = (function () {
     };
 
     Terminal.prototype.sudo = function () {
-        var result = sendRequest(cmdComponents[1], 0);
+        //var result = sendRequest(cmdComponents[1], 0);
         this.type(result), this.unlock.bind(this));
         //this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
     }
