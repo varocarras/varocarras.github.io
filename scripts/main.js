@@ -116,7 +116,7 @@ var main = (function () {
     //             return http.response;
     //         }
     //     }
-    }
+    //}
     
     /**
      * Model
