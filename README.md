@@ -1,3 +1,3 @@
-# My Personal Website
+# Terminal Website
 
 varocarras@github.io
