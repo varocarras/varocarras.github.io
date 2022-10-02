@@ -13,6 +13,7 @@ var configs = (function () {
     };
     Singleton.defaultOptions = {
         general_help: "Below is the list of commands that you can use:\n Use TAB to autocomplete!",
+        login_help: "Login please.",
         ls_help: "List information about the files and folders (the current directory by default).",
         cat_help: "Read FILE(s) content and print it to the standard output (screen).",
         whoami_help: "Print the user name associated with the current effective user ID and more info.",
@@ -136,6 +137,7 @@ var main = (function () {
     InvalidArgumentException.prototype.constructor = InvalidArgumentException;
 
     var cmds = {
+        TEST: { value: "test", help: configs.getInstance().ls_help },
         LS: { value: "ls", help: configs.getInstance().ls_help },
         CAT: { value: "cat", help: configs.getInstance().cat_help },
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
@@ -148,7 +150,8 @@ var main = (function () {
         RM: { value: "rm", help: configs.getInstance().rm_help },
         RMDIR: { value: "rmdir", help: configs.getInstance().rmdir_help },
         TOUCH: { value: "touch", help: configs.getInstance().touch_help },
-        SUDO: { value: "sudo", help: configs.getInstance().sudo_help }
+        SUDO: { value: "sudo", help: configs.getInstance().sudo_help },
+        LOGIN: { value: "login", help: configs.getInstance().login_help}
     };
 
     var Terminal = function (prompt, cmdLine, output, sidenav, profilePic, user, host, root, outputTimer) {
@@ -327,6 +330,9 @@ var main = (function () {
         var cmdComponents = this.cmdLine.value.trim().split(" ");
         this.lock();
         switch (cmdComponents[0]) {
+            case cmds.LOGIN.value:
+                this.login(cmdComponents);
+                break;
             case cmds.CAT.value:
                 this.cat(cmdComponents);
                 break;
@@ -358,11 +364,24 @@ var main = (function () {
             case cmds.SUDO.value:
                 this.sudo();
                 break;
+
+            case cmds.TEST.value:
+                this.test(cmdComponents);
+                break;
             default:
+                //Default test
                 this.invalidCommand(cmdComponents);
                 break;
         };
     };
+
+    Terminal.prototype.login = async function (cmdComponents) {
+        var result;
+        let y = await foo(cmdComponents)
+
+         
+        this.type(y, this.unlock.bind(this));
+    }
 
     Terminal.prototype.cat = function (cmdComponents) {
         var result;
@@ -375,6 +394,32 @@ var main = (function () {
         }
         this.type(result, this.unlock.bind(this));
     };
+
+    // Async Test function ----------------------------------------------------------------
+    Terminal.prototype.test = async function (cmdComponents) {
+        var result;
+        let y = await foo(cmdComponents)
+
+         
+        this.type(y, this.unlock.bind(this));
+    };
+    
+
+    const foo = async (args) => {
+        
+            let y = fetch("http://localhost:3000/command?command=" + args[0] + "&args=" + args[1])
+                .then(res => res.text())
+                .then((res) => {
+                    // let x = res;
+                    return res
+                    // console.log(x.text())
+                });
+            return y;
+    
+
+    }
+    
+    //----------------------------------------------------------------
 
     Terminal.prototype.ls = function () {
         var result = ".\n..\n" + configs.getInstance().welcome_file_name + "\n";
