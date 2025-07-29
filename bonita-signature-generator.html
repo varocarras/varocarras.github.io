@@ -36,12 +36,51 @@
         }
 
         .header-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
-            margin: 0 auto 20px auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            margin: 0 auto 25px auto;
             display: block;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background: white;
+            padding: 4px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.1),
+                0 5px 15px rgba(0, 0, 0, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .header-logo:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(0, 74, 173, 0.15),
+                0 15px 35px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .header-logo:hover::before {
+            opacity: 1;
+            animation: shimmer 0.8s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .header h1 {
@@ -312,7 +351,7 @@
                     </button>
                     
                     <button id="hubspotBtn" class="copy-btn hubspot-btn" onclick="copyForHubspot()" disabled>
-                        <img src="https://img.icons8.com/color/48/hubspot.png" alt="HubSpot">
+                        <img src="https://legal.hubspot.com/hubfs/guidelines_the-sprocket.svg" alt="HubSpot">
                         Para HubSpot
                     </button>
                 </div>
@@ -381,24 +420,24 @@
     <script>
         // Template de firma configurable con marcadores de posición
         const SIGNATURE_TEMPLATE = `
-        <table cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; color: #1a1a1a; line-height: 1.4; max-width: 650px; width: 100%;">
+        <table cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; color: #1a1a1a; line-height: 1.4; max-width: 600px; width: 100%;">
           <tr>
             <!-- Logo & Social Section -->
-            <td style="vertical-align: top; padding-right: 18px; width: 85px;">
+            <td style="vertical-align: top; padding-right: 16px; width: 85px; min-width: 85px;">
               <img src="https://cdn.prod.website-files.com/6595a3a1fbe342a138275c45/6595b2212ea917577755d0cf_Logo-200x200.png" 
                    alt="Bonita Residences Logo" 
                    width="85" 
                    height="85" 
-                   style="border-radius: 16px; display: block;  margin-bottom: 10px;">
+                   style="border-radius: 16px; display: block; margin-bottom: 8px;">
               
               <!-- Social Icons under logo -->
               <div style="text-align: center;">
-                <a href="https://bonitaresidences.luxury" target="_blank" style="text-decoration: none; margin-right: 8px;">
+                <a href="https://bonitaresidences.luxury" target="_blank" style="text-decoration: none; margin-right: 6px;">
                   <img src="https://img.icons8.com/fluency-systems-filled/20/004AAD/domain.png" 
                        alt="Website" 
                        style="vertical-align: middle; border-radius: 3px;" />
                 </a>
-                <a href="https://instagram.com/bonitaresidences" target="_blank" style="text-decoration: none; margin-right: 8px;">
+                <a href="https://instagram.com/bonitaresidences" target="_blank" style="text-decoration: none; margin-right: 6px;">
                   <img src="https://img.icons8.com/fluency-systems-filled/20/004AAD/instagram-new.png" 
                        alt="Instagram" 
                        style="vertical-align: middle; border-radius: 3px;" />
@@ -412,33 +451,26 @@
             </td>
             
             <!-- Elegant Divider -->
-            <td style="width: 2px; background: linear-gradient(to bottom, #004AAD, #2f476a); border-radius: 1px; opacity: 0.3;"></td>
+            <td style="width: 2px; background: linear-gradient(to bottom, #004AAD, #2f476a); border-radius: 1px; opacity: 0.3; min-width: 2px;"></td>
             
             <!-- Main Info Section -->
-            <td style="vertical-align: top; padding-left: 20px;">
+            <td style="vertical-align: top; padding-left: 18px;">
               <!-- Name and Title -->
               <div style="font-size: 18px; font-weight: bold; color: #2f476a; margin-bottom: 1px;">{{NOMBRE}}</div>
               <div style="font-size: 14px; color: #666; margin-bottom: 2px;">{{TITULO}}</div>
-              <div style="font-size: 14px; color: #004AAD; font-weight: 600; margin-bottom: 8px;">
+              <div style="font-size: 14px; color: #004AAD; font-weight: 600; margin-bottom: 10px;">
                 <a href="https://bonitaresidences.luxury" style="color: #004AAD; text-decoration: none;">Bonita Luxury Residences</a>
               </div>
               
-              <!-- Contact Information - Email and Phone inline -->
+              <!-- Contact Information - Stacked vertically -->
+              <div style="margin-bottom: 6px;">
+                <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/new-post.png" alt="Email" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
+                <a href="mailto:{{EMAIL}}" style="color: #555; text-decoration: none; font-size: 13px;">{{EMAIL}}</a>
+              </div>
+              
               <div>
-                <table cellpadding="0" cellspacing="0">
-                  <tr>
-                    <!-- Email -->
-                    <td style="padding-right: 20px;">
-                      <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/new-post.png" alt="Email" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
-                      <a href="mailto:{{EMAIL}}" style="color: #555; text-decoration: none; font-size: 13px;">{{EMAIL}}</a>
-                    </td>
-                    <!-- Phone -->
-                    <td>
-                      <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/phone.png" alt="Phone" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
-                      <span style="color: #555; font-size: 13px;">{{TELEFONO}}</span>
-                    </td>
-                  </tr>
-                </table>
+                <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/phone.png" alt="Phone" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
+                <span style="color: #555; font-size: 13px;">{{TELEFONO}}</span>
               </div>
             </td>
           </tr>
