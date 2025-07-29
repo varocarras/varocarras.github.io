@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Firmas - Bonita Residences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #004AAD 0%, #2f476a 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            margin: 0 auto 20px auto;
+            display: block;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .form-section {
+            padding: 40px;
+            background: #f8f9ff;
+        }
+
+        .preview-section {
+            padding: 40px;
+            background: white;
+            border-left: 1px solid #e0e0e0;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #2f476a;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #004AAD;
+            box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #004AAD 0%, #2f476a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .signature-preview {
+            border: 2px dashed #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fafafa;
+            margin-bottom: 20px;
+            min-height: 200px;
+        }
+
+        .signature-preview.has-content {
+            border: 2px solid #004AAD;
+            background: white;
+        }
+
+        .copy-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .copy-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .gmail-btn {
+            background: #4285f4;
+            color: white;
+        }
+
+        .gmail-btn:hover {
+            background: #3367d6;
+            transform: translateY(-1px);
+        }
+
+        .hubspot-btn {
+            background: #ff7a59;
+            color: white;
+        }
+
+        .hubspot-btn:hover {
+            background: #ff6347;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .instructions {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f0f8ff;
+            border-radius: 15px;
+        }
+
+        .instructions h3 {
+            color: #004AAD;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .instruction-step {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #004AAD;
+        }
+
+        .instruction-step h4 {
+            color: #2f476a;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .instruction-step ol {
+            margin-left: 20px;
+        }
+
+        .instruction-step li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-section {
+                border-left: none;
+                border-top: 1px solid #e0e0e0;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .form-section, .preview-section {
+                padding: 20px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://cdn.prod.website-files.com/6595a3a1fbe342a138275c45/6595b2212ea917577755d0cf_Logo-200x200.png" alt="Bonita Residences" class="header-logo">
+            <h1>Generador de Firmas de Email</h1>
+            <p>Bonita Luxury Residences - Herramienta Interna</p>
+        </div>
+
+        <div class="content">
+            <div class="form-section">
+                <h2 class="section-title">Información del Empleado</h2>
+
+                <form id="signatureForm">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="name" required placeholder="Ej: María González López">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Título/Posición *</label>
+                        <input type="text" id="title" name="title" required placeholder="Ej: Directora de Ventas">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Corporativo *</label>
+                        <input type="email" id="email" name="email" required placeholder="Ej: maria.gonzalez@bonita.golf">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej: (786) 123-4567">
+                    </div>
+
+                    <button type="button" class="generate-btn" onclick="generateSignature()">
+                        🎨 Generar Firma
+                    </button>
+                </form>
+            </div>
+
+            <div class="preview-section">
+                <h2 class="section-title">Vista Previa de la Firma</h2>
+                
+                <div id="signaturePreview" class="signature-preview">
+                    <p style="text-align: center; color: #888; font-style: italic; margin-top: 60px;">
+                        Complete el formulario para ver la vista previa de su firma
+                    </p>
+                </div>
+
+                <div class="copy-buttons">
+                    <button id="gmailBtn" class="copy-btn gmail-btn" onclick="copyForGmail()" disabled>
+                        <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Gmail">
+                        Para Gmail
+                    </button>
+                    
+                    <button id="hubspotBtn" class="copy-btn hubspot-btn" onclick="copyForHubspot()" disabled>
+                        <img src="https://img.icons8.com/color/48/hubspot.png" alt="HubSpot">
+                        Para HubSpot
+                    </button>
+                </div>
+                
+                <div id="successMessage" class="success-message">
+                    ✅ ¡Firma copiada al portapapeles!
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>¿Cómo agregar tu firma? ¡Es muy fácil! 😊</h3>
+            
+            <div class="instruction-step">
+                <h4>📧 Gmail (Google Workspace)</h4>
+                <p style="margin-bottom: 15px; color: #666;">Usa el botón azul <strong>"Para Gmail"</strong> y sigue estos pasos:</p>
+                <ol>
+                    <li>Haz clic en el <strong>botón azul "Para Gmail"</strong> arriba para copiar tu firma</li>
+                    <li>Abre Gmail y busca el ícono de configuración ⚙️ en la esquina superior derecha</li>
+                    <li>Haz clic en <strong>"Ver toda la configuración"</strong></li>
+                    <li>En la pestaña <strong>"General"</strong>, busca la sección <strong>"Firma"</strong></li>
+                    <li>Crea una nueva firma haciendo clic en <strong>"+ Crear nueva"</strong></li>
+                    <li>Asígnale un nombre como <strong>"Mi Firma Bonita"</strong></li>
+                    <li><strong>Pega directamente</strong> (Ctrl+V) en el editor de firmas - ¡no necesitas código HTML!</li>
+                    <li><strong>¡IMPORTANTE! Configura estos ajustes:</strong>
+                        <ul style="margin-top: 8px; margin-bottom: 8px;">
+                            <li><strong>Para nuevos emails:</strong> Selecciona tu firma desde el menú desplegable</li>
+                            <li><strong>Al responder o reenviar:</strong> Selecciona tu firma también aquí</li>
+                            <li><strong>Ubicación de la firma:</strong> Marca <strong>"Insertar firma antes del texto citado en respuestas"</strong> para que aparezca antes del mensaje original</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>"Guardar cambios"</strong> al final de la página</li>
+                    <li>¡Perfecto! Ahora tu firma aparecerá automáticamente en todos tus emails, respuestas y reenvíos</li>
+                </ol>
+                <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #4285f4;">
+                    <strong>💡 Consejo Pro:</strong> Si tu firma no aparece en respuestas, verifica que hayas seleccionado tu firma en ambos menús desplegables (nuevos emails Y respuestas/reenvíos).
+                </div>
+            </div>
+
+            <div class="instruction-step">
+                <h4>🎯 HubSpot CRM</h4>
+                <p style="margin-bottom: 15px; color: #666;">Usa el botón naranja <strong>"Para HubSpot"</strong> y sigue estos pasos:</p>
+                <ol>
+                    <li>Haz clic en el <strong>botón naranja "Para HubSpot"</strong> arriba para copiar el código HTML</li>
+                    <li>Accede a tu cuenta de HubSpot</li>
+                    <li>Ve a <strong>Configuración → General → Email</strong></li>
+                    <li>Busca <strong>"Firmas de email"</strong> y haz clic en <strong>"Editar"</strong></li>
+                    <li>Selecciona el formato <strong>"HTML"</strong></li>
+                    <li><strong>Pega el código HTML</strong> copiado (Ctrl+V)</li>
+                    <li>Guarda y configura como predeterminada si deseas</li>
+                </ol>
+            </div>
+
+            <div class="instruction-step">
+                <h4>✨ Algunos consejos útiles</h4>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">🧪 <strong>Haz una prueba:</strong> Envíate un email para verificar que todo se ve perfecto</li>
+                    <li style="margin-bottom: 10px;">📱 <strong>Optimizada para móviles:</strong> Tu firma se verá genial en cualquier dispositivo</li>  
+                    <li style="margin-bottom: 10px;">🔄 <strong>Actualizaciones fáciles:</strong> Simplemente regresa aquí cuando necesites cambiar algo</li>
+                    <li style="margin-bottom: 10px;">🆘 <strong>¿Necesitas ayuda?</strong> No dudes en contactar a IT para asistencia técnica</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Template de firma configurable con marcadores de posición
+        const SIGNATURE_TEMPLATE = `
+        <table cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; color: #1a1a1a; line-height: 1.4; max-width: 650px; width: 100%;">
+          <tr>
+            <!-- Logo & Social Section -->
+            <td style="vertical-align: top; padding-right: 18px; width: 85px;">
+              <img src="https://cdn.prod.website-files.com/6595a3a1fbe342a138275c45/6595b2212ea917577755d0cf_Logo-200x200.png" 
+                   alt="Bonita Residences Logo" 
+                   width="85" 
+                   height="85" 
+                   style="border-radius: 16px; display: block;  margin-bottom: 10px;">
+              
+              <!-- Social Icons under logo -->
+              <div style="text-align: center;">
+                <a href="https://bonitaresidences.luxury" target="_blank" style="text-decoration: none; margin-right: 8px;">
+                  <img src="https://img.icons8.com/fluency-systems-filled/20/004AAD/domain.png" 
+                       alt="Website" 
+                       style="vertical-align: middle; border-radius: 3px;" />
+                </a>
+                <a href="https://instagram.com/bonitaresidences" target="_blank" style="text-decoration: none; margin-right: 8px;">
+                  <img src="https://img.icons8.com/fluency-systems-filled/20/004AAD/instagram-new.png" 
+                       alt="Instagram" 
+                       style="vertical-align: middle; border-radius: 3px;" />
+                </a>
+                <a href="https://linkedin.com/company/bonitaresidences" target="_blank" style="text-decoration: none;">
+                  <img src="https://img.icons8.com/fluency-systems-filled/20/004AAD/linkedin.png" 
+                       alt="LinkedIn" 
+                       style="vertical-align: middle; border-radius: 3px;" />
+                </a>
+              </div>
+            </td>
+            
+            <!-- Elegant Divider -->
+            <td style="width: 2px; background: linear-gradient(to bottom, #004AAD, #2f476a); border-radius: 1px; opacity: 0.3;"></td>
+            
+            <!-- Main Info Section -->
+            <td style="vertical-align: top; padding-left: 20px;">
+              <!-- Name and Title -->
+              <div style="font-size: 18px; font-weight: bold; color: #2f476a; margin-bottom: 1px;">{{NOMBRE}}</div>
+              <div style="font-size: 14px; color: #666; margin-bottom: 2px;">{{TITULO}}</div>
+              <div style="font-size: 14px; color: #004AAD; font-weight: 600; margin-bottom: 8px;">
+                <a href="https://bonitaresidences.luxury" style="color: #004AAD; text-decoration: none;">Bonita Luxury Residences</a>
+              </div>
+              
+              <!-- Contact Information - Email and Phone inline -->
+              <div>
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <!-- Email -->
+                    <td style="padding-right: 20px;">
+                      <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/new-post.png" alt="Email" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
+                      <a href="mailto:{{EMAIL}}" style="color: #555; text-decoration: none; font-size: 13px;">{{EMAIL}}</a>
+                    </td>
+                    <!-- Phone -->
+                    <td>
+                      <img src="https://img.icons8.com/fluency-systems-filled/16/004AAD/phone.png" alt="Phone" style="vertical-align: middle; margin-right: 6px; opacity: 0.8;">
+                      <span style="color: #555; font-size: 13px;">{{TELEFONO}}</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+        `;
+
+        let generatedSignatureHTML = '';
+
+        function generateSignature() {
+            const name = document.getElementById('name').value.trim();
+            const title = document.getElementById('title').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!name || !title || !email || !phone) {
+                alert('Por favor, complete todos los campos requeridos.');
+                return;
+            }
+
+            // Reemplazar marcadores de posición en la plantilla
+            generatedSignatureHTML = SIGNATURE_TEMPLATE
+                .replace(/{{NOMBRE}}/g, name)
+                .replace(/{{TITULO}}/g, title)
+                .replace(/{{EMAIL}}/g, email)
+                .replace(/{{TELEFONO}}/g, phone);
+
+            // Mostrar vista previa
+            const preview = document.getElementById('signaturePreview');
+            preview.innerHTML = generatedSignatureHTML;
+            preview.classList.add('has-content');
+
+            // Habilitar botones de copiar
+            document.getElementById('gmailBtn').disabled = false;
+            document.getElementById('hubspotBtn').disabled = false;
+        }
+
+        async function copyForGmail() {
+            if (!generatedSignatureHTML) {
+                alert('Primero debe generar una firma.');
+                return;
+            }
+
+            try {
+                // Crear un elemento temporal para copiar solo el contenido visual
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = generatedSignatureHTML;
+                document.body.appendChild(tempDiv);
+                
+                // Seleccionar el contenido
+                const range = document.createRange();
+                range.selectNodeContents(tempDiv);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                // Copiar al portapapeles
+                document.execCommand('copy');
+                
+                // Limpiar
+                selection.removeAllRanges();
+                document.body.removeChild(tempDiv);
+                
+                showSuccessMessage('Gmail');
+                
+            } catch (err) {
+                alert('Error al copiar para Gmail. Intenta de nuevo.');
+            }
+        }
+
+        async function copyForHubspot() {
+            if (!generatedSignatureHTML) {
+                alert('Primero debe generar una firma.');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(generatedSignatureHTML);
+                showSuccessMessage('HubSpot');
+                
+            } catch (err) {
+                // Fallback para navegadores que no soportan la API de clipboard
+                const textArea = document.createElement('textarea');
+                textArea.value = generatedSignatureHTML;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                showSuccessMessage('HubSpot');
+            }
+        }
+
+        function showSuccessMessage(platform) {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.innerHTML = `✅ ¡Firma copiada para ${platform}!`;
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Generar firma automáticamente cuando se completen todos los campos
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('#signatureForm input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const allFilled = Array.from(inputs).every(inp => inp.value.trim() !== '');
+                    if (allFilled) {
+                        generateSignature();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
